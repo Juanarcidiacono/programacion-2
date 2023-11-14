@@ -1,4 +1,4 @@
-package org.example;
+package org.segundo.parcial;
 
 import java.util.List;
 
