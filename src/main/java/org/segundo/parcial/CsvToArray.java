@@ -16,7 +16,7 @@ public class CsvToArray {
      *
      * @return Una lista de arrays de cadenas, donde cada array representa una fila del archivo CSV.
      */
-    private List<String[]> leerCsv() {
+    public List<String[]> leerCsv() {
         final String PATH = "film.csv";
         final String SEPARATOR = ";";
 
@@ -44,7 +44,7 @@ public class CsvToArray {
     /**
      * Imprime los datos del archivo CSV en la consola.
      */
-    protected void printCsv() {
+    public void printCsv() {
         List<String[]> csvFields = leerCsv();
         for (String[] fields : csvFields) {
             for (String field : fields) {
@@ -57,7 +57,7 @@ public class CsvToArray {
     /**
      * Calcula y muestra la cantidad de películas premiadas en el archivo CSV.
      */
-    protected long totalPeliculasPremiadas() {
+    public long totalPeliculasPremiadas() {
         List<String[]> movies = leerCsv();
 
         // Las peliculas premiadas estan en la columna 8 del archivo csv
@@ -75,7 +75,7 @@ public class CsvToArray {
      * @param year    El año de las películas a filtrar.
      * @return Una lista de arrays de strings que representan las películas filtradas.
      */
-    protected  List<String[]> listaConFiltros(String subject, String year) {
+    public List<String[]> listaConFiltros(String subject, String year) {
 
         List<String[]> filteredMovies;
 

@@ -20,7 +20,7 @@ public class ListToXls {
      * @param data Una lista de arrays de cadenas que representan los datos para el archivo Excel.
      *             Cada elemento de la lista corresponde a una fila en la hoja de cálculo.
      */
-    protected void generarXls(List<String[]> data) {
+    public void generarXls(List<String[]> data) {
         try (HSSFWorkbook workbook = new HSSFWorkbook()) {
             // Crear una hoja en el libro de trabajo
             HSSFSheet sheet = workbook.createSheet(SHEET_NAME);
