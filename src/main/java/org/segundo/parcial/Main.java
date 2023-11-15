@@ -1,18 +1,27 @@
 package org.segundo.parcial;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 public class Main {
 
+    static CsvToArray csv;
+    static ListToXls xls;
+
     public static void main(String[] args) {
-        CsvToArray movie = new CsvToArray();
-        ListToXls sheet = new ListToXls();
 
-        movie.printCsv();
-        movie.totalPeliculasPremiadas();
+        System.out.println( "ALUMNO: Arcidiacono Juan Ignacio" );
+        System.out.println("===================================================================");
 
-        movie.listaConFiltros("Year", "1986", true);
-        List<String[]> data = movie.listaConFiltros("Title", "Magic", false);
-        sheet.generarXls(data);
+        csv = new CsvToArray();
+        xls = new ListToXls();
+
+        csv.printCsv();
+        System.out.println("Total de peliculas premiadas: "+ csv.totalPeliculasPremiadas());
+        System.out.println("===================================================================");
+
+        System.out.println("== Lista de peliculas ==");
+        List<String[]> data = csv.listaConFiltros("Comedy", "1990");
+        xls.generarXls(data);
     }
 }

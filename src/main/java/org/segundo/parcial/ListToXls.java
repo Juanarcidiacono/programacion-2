@@ -11,7 +11,7 @@ import java.util.List;
 public class ListToXls {
 
     final String SHEET_NAME = "lista";
-    final String PATH = "src/main/ouput/filtered_movie.xls";
+    final String PATH = "filtered_movies.xls";
 
     /**
      * Esta función genera un archivo Excel (.xls) a partir de una lista de datos.
@@ -64,6 +64,4 @@ public class ListToXls {
             e.printStackTrace();
         }
     }
-
-
 }

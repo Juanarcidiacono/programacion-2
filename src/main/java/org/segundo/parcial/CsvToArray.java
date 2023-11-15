@@ -5,11 +5,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CsvToArray {
+    private List<String[]> fields = new ArrayList<>();
 
     /**
      * Lee el archivo CSV y retorna una lista de arrays de cadenas que representan los datos del archivo.
@@ -17,9 +17,8 @@ public class CsvToArray {
      * @return Una lista de arrays de cadenas, donde cada array representa una fila del archivo CSV.
      */
     private List<String[]> leerCsv() {
-        final String PATH = "src/main/resources/film.csv";
+        final String PATH = "film.csv";
         final String SEPARATOR = ";";
-        List<String[]> fields = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
             String line;
@@ -58,13 +57,43 @@ public class CsvToArray {
     /**
      * Calcula y muestra la cantidad de películas premiadas en el archivo CSV.
      */
-    protected void totalPeliculasPremiadas() {
+    protected long totalPeliculasPremiadas() {
         List<String[]> movies = leerCsv();
 
         // Las peliculas premiadas estan en la columna 8 del archivo csv
-        long cantidadPeliculasPremiadas = movies.stream().filter(movie -> "Yes".equals(movie[8])).count();
+        return movies.stream().filter(movie -> "Yes".equals(movie[8])).count();
+    }
 
-        System.out.println("La cantidad de peliculas premiadas son: " + cantidadPeliculasPremiadas);
+    /**
+     * Filtra y devuelve una lista de películas basada en el año y el genero.
+     *
+     * Este método lee un archivo CSV de películas, filtra las películas según el año y el tema dados,
+     * y devuelve una lista de arrays de strings que representan las películas filtradas.
+     * El encabezado del archivo CSV se conserva en la lista resultante.
+     *
+     * @param subject El tema de las películas a filtrar.
+     * @param year    El año de las películas a filtrar.
+     * @return Una lista de arrays de strings que representan las películas filtradas.
+     */
+    protected  List<String[]> listaConFiltros(String subject, String year) {
+
+        List<String[]> filteredMovies;
+
+        List<String[]> movies = leerCsv();
+
+        // Uso .collect(Collectors.toList()) porque me permite crear una lista mutable.
+        // Necesito agregar el encabezado de la tabla.
+        filteredMovies = movies.stream().filter(movie -> (year.equals(movie[0]) && subject.equals(movie[3]))).collect(Collectors.toList());
+
+        if (!movies.isEmpty() && !filteredMovies.isEmpty()) {
+            filteredMovies.add(0, movies.get(0));
+        }
+        return filteredMovies;
+    }
+
+
+    public List<String[]> getFields() {
+        return fields;
     }
 
     /**
@@ -75,6 +104,7 @@ public class CsvToArray {
      * @param imprimirDatos     Indica si se deben imprimir los datos filtrados en la consola.
      * @return Una lista de arrays de cadenas que representan las películas filtradas.
      */
+    /*
     protected List<String[]> listaConFiltros(String parametroBusqueda, String value, boolean imprimirDatos) {
         List<String[]> filteredMovies = new ArrayList<>();
 
@@ -163,6 +193,8 @@ public class CsvToArray {
 
         return filteredMovies;
     }
+    */
+
 
 
 }
