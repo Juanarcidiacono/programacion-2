@@ -16,28 +16,28 @@ public class CsvToArray {
      *
      * @return Una lista de arrays de cadenas, donde cada array representa una fila del archivo CSV.
      */
-    private List<String[]> leerCsv(){
-            final String PATH = "src/main/resources/film.csv";
-            final String SEPARATOR = ";";
-            List<String[]> fields = new ArrayList<>();
+    private List<String[]> leerCsv() {
+        final String PATH = "src/main/resources/film.csv";
+        final String SEPARATOR = ";";
+        List<String[]> fields = new ArrayList<>();
 
-                try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
-                    String line;
+        try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
+            String line;
 
-                    if ((line = br.readLine()) != null) {
-                        String[] headers = line.split(SEPARATOR);
-                        fields.add(headers);
-                    }
+            if ((line = br.readLine()) != null) {
+                String[] headers = line.split(SEPARATOR);
+                fields.add(headers);
+            }
 
-                    // Lee el archivo mientras sea distinto de nulo
-                    while ((line = br.readLine()) != null) {
-                        String[] movie = line.split(SEPARATOR);
-                        fields.add(movie);
-                    }
-                    // IOException es una excepcion que puede surgir al momento de manipular archivos
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+            // Lee el archivo mientras sea distinto de nulo
+            while ((line = br.readLine()) != null) {
+                String[] movie = line.split(SEPARATOR);
+                fields.add(movie);
+            }
+            // IOException es una excepcion que puede surgir al momento de manipular archivos
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
         return fields;
     }
@@ -45,7 +45,7 @@ public class CsvToArray {
     /**
      * Imprime los datos del archivo CSV en la consola.
      */
-     protected void printCsv(){
+    protected void printCsv() {
         List<String[]> csvFields = leerCsv();
         for (String[] fields : csvFields) {
             for (String field : fields) {
@@ -58,7 +58,7 @@ public class CsvToArray {
     /**
      * Calcula y muestra la cantidad de películas premiadas en el archivo CSV.
      */
-    protected void totalPeliculasPremiadas(){
+    protected void totalPeliculasPremiadas() {
         List<String[]> movies = leerCsv();
 
         // Las peliculas premiadas estan en la columna 8 del archivo csv
@@ -75,12 +75,12 @@ public class CsvToArray {
      * @param imprimirDatos     Indica si se deben imprimir los datos filtrados en la consola.
      * @return Una lista de arrays de cadenas que representan las películas filtradas.
      */
-    protected List<String[]> listaConFiltros(String parametroBusqueda, String value,boolean imprimirDatos){
+    protected List<String[]> listaConFiltros(String parametroBusqueda, String value, boolean imprimirDatos) {
         List<String[]> filteredMovies = new ArrayList<>();
 
         List<String[]> movies = leerCsv();
 
-        switch (parametroBusqueda){
+        switch (parametroBusqueda) {
             case "Year":
                 filteredMovies = movies.stream()
                         .filter(movie -> value.equals(movie[0]))
@@ -91,37 +91,43 @@ public class CsvToArray {
             case "Length":
                 filteredMovies = movies.stream()
                         .filter(movie -> value.equals(movie[1]))
-                        .collect(Collectors.toList());;
+                        .collect(Collectors.toList());
+                ;
 
                 break;
             case "Title":
                 filteredMovies = movies.stream()
                         .filter(movie -> movie[2].contains(value))
-                        .collect(Collectors.toList());;
+                        .collect(Collectors.toList());
+                ;
 
                 break;
             case "Subject":
                 filteredMovies = movies.stream()
                         .filter(movie -> movie[3].equals(value))
-                        .collect(Collectors.toList());;
+                        .collect(Collectors.toList());
+                ;
 
                 break;
             case "Actor":
                 filteredMovies = movies.stream()
                         .filter(movie -> movie[4].contains(value))
-                        .collect(Collectors.toList());;
+                        .collect(Collectors.toList());
+                ;
 
                 break;
             case "Actress":
                 filteredMovies = movies.stream()
                         .filter(movie -> movie[5].contains(value))
-                        .collect(Collectors.toList());;
+                        .collect(Collectors.toList());
+                ;
 
                 break;
             case "Director":
                 filteredMovies = movies.stream()
                         .filter(movie -> movie[6].contains(value))
-                        .collect(Collectors.toList());;
+                        .collect(Collectors.toList());
+                ;
 
                 break;
             case "Populartity":
@@ -133,7 +139,8 @@ public class CsvToArray {
             case "Awards":
                 filteredMovies = movies.stream()
                         .filter(movie -> value.equals(movie[8]))
-                        .collect(Collectors.toList());;
+                        .collect(Collectors.toList());
+                ;
 
                 break;
             case "Image":

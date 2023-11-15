@@ -11,7 +11,7 @@ public class Main {
         movie.printCsv();
         movie.totalPeliculasPremiadas();
 
-        movie.listaConFiltros("Year","1986",true);
+        movie.listaConFiltros("Year", "1986", true);
         List<String[]> data = movie.listaConFiltros("Title", "Magic", false);
         sheet.generarXls(data);
     }
