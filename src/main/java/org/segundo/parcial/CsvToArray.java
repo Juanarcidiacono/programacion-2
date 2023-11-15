@@ -17,21 +17,21 @@ public class CsvToArray {
      * @return Una lista de arrays de cadenas, donde cada array representa una fila del archivo CSV.
      */
     private List<String[]> leerCsv(){
-            final String path = "src/main/resources/film.csv";
-            final String separator = ";";
+            final String PATH = "src/main/resources/film.csv";
+            final String SEPARATOR = ";";
             List<String[]> fields = new ArrayList<>();
 
-                try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+                try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
                     String line;
 
                     if ((line = br.readLine()) != null) {
-                        String[] headers = line.split(separator);
+                        String[] headers = line.split(SEPARATOR);
                         fields.add(headers);
                     }
 
                     // Lee el archivo mientras sea distinto de nulo
                     while ((line = br.readLine()) != null) {
-                        String[] movie = line.split(separator);
+                        String[] movie = line.split(SEPARATOR);
                         fields.add(movie);
                     }
                     // IOException es una excepcion que puede surgir al momento de manipular archivos
