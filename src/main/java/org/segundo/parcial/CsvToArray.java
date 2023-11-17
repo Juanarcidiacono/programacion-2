@@ -11,12 +11,16 @@ import java.util.stream.Collectors;
 public class CsvToArray {
     private List<String[]> fields = new ArrayList<>();
 
+    private List<String[]> datos;
+
     /**
      * Lee el archivo CSV y retorna una lista de arrays de cadenas que representan los datos del archivo.
      *
      * @return Una lista de arrays de cadenas, donde cada array representa una fila del archivo CSV.
      */
-    public List<String[]> leerCsv() {
+    public void leerCsv() {
+        datos = new ArrayList<>();
+
         final String PATH = "film.csv";
         final String SEPARATOR = ";";
 
@@ -25,28 +29,27 @@ public class CsvToArray {
 
             if ((line = br.readLine()) != null) {
                 String[] headers = line.split(SEPARATOR);
-                fields.add(headers);
+                datos.add(headers);
             }
 
             // Lee el archivo mientras sea distinto de nulo
             while ((line = br.readLine()) != null) {
                 String[] movie = line.split(SEPARATOR);
-                fields.add(movie);
+                datos.add(movie);
             }
             // IOException es una excepcion que puede surgir al momento de manipular archivos
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
 
-        return fields;
     }
 
     /**
      * Imprime los datos del archivo CSV en la consola.
      */
     public void printCsv() {
-        List<String[]> csvFields = leerCsv();
-        for (String[] fields : csvFields) {
+        leerCsv();
+        for (String[] fields : datos) {
             for (String field : fields) {
                 System.out.print(field + " ");
             }
@@ -58,10 +61,10 @@ public class CsvToArray {
      * Calcula y muestra la cantidad de películas premiadas en el archivo CSV.
      */
     public long totalPeliculasPremiadas() {
-        List<String[]> movies = leerCsv();
+
 
         // Las peliculas premiadas estan en la columna 8 del archivo csv
-        return movies.stream().filter(movie -> "Yes".equals(movie[8])).count();
+        return datos.stream().filter(movie -> "Yes".equals(movie[8])).count();
     }
 
     /**
@@ -79,15 +82,24 @@ public class CsvToArray {
 
         List<String[]> filteredMovies;
 
-        List<String[]> movies = leerCsv();
 
         // Uso .collect(Collectors.toList()) porque me permite crear una lista mutable.
-        // Necesito agregar el encabezado de la tabla.
-        filteredMovies = movies.stream().filter(movie -> (year.equals(movie[0]) && subject.equals(movie[3]))).collect(Collectors.toList());
+        // Necesito agregar el encabezado de la tabla. De esta forma filteredMovies puedo pasarlo
+        // como argumento a la funcion generarXls y generar un excel con estos datos.
+        filteredMovies = datos.stream().filter(movie -> (year.equals(movie[0]) && subject.equals(movie[3])))
+                .collect(Collectors.toList());
 
-        if (!movies.isEmpty() && !filteredMovies.isEmpty()) {
-            filteredMovies.add(0, movies.get(0));
+        if (!datos.isEmpty() && !filteredMovies.isEmpty()) {
+            filteredMovies.add(0, datos.get(0));
         }
+
+        for (String[] fields : filteredMovies) {
+            for (String field : fields) {
+                System.out.print(field + " ");
+            }
+            System.out.println();
+        }
+
         return filteredMovies;
     }
 

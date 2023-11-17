@@ -21,7 +21,8 @@ public class Main {
         System.out.println("===================================================================");
 
         System.out.println("== Lista de peliculas ==");
-        List<String[]> data = csv.listaConFiltros("Comedy", "1990");
+        List<String[]> data = csv.listaConFiltros("Comedy", "1986");
+
         xls.generarXls(data);
     }
 }
